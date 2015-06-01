@@ -2,6 +2,7 @@
 
 import argparse
 import requests
+import pkg_resources
 from requests.exceptions import ConnectionError
 from urllib import quote 
 from pyquery import PyQuery
@@ -25,7 +26,28 @@ def retrieve_so_page_links(query):
     html = PyQuery(result)
     return [a.attrib['href'] for a in html('.l')] or \
            [a.attrib['href'] for a in html('.r')('a')]
+
+
+def load_commands():
+    """Load unix/linux commands names from text file"""
+    return pkg_resources.resource_string('hownix', 'nix_commands.txt')
+    #return [l.strip() for l in open('nix_commands.txt').readlines()]
            
+def line_2_cmd(line):
+    """Return first word from text of line"""
+    return line.text.split()[0]
+
+def line_2_text(line):
+    """Return text from line after cleansing"""
+    return line.text.strip('$>').strip().split('\n')[0]
+
+def candidate_command_line(line):
+    """Return true for lines with non-blank text with more than a single word in which the first word is a unix/linux command"""
+    commands = load_commands()
+    return line.text is not None and \
+           not line.text.isspace() and \
+           len(line.text.strip().split()) > 1 and \
+           line_2_cmd(line) in commands
 
 def get_command_line(args, links):
     """Parse through StackOverflow page and identify command line corresponding to most frequently referred to command"""
@@ -34,25 +56,18 @@ def get_command_line(args, links):
     link = links[0] # use the first link
     page = request_page(link + '?answertab=votes')
     html = PyQuery(page)
-    commands = [l.strip() for l in open('nix_commands.txt').readlines()]
+    html_answers = html('.answercell').find('*')
+
     cmd_frequency = {}
     cmd_lines = {}
-    max_cmd = None
-    max_freq = 0
-    html_answers = html('.answercell').find('*')
-    for line in html_answers:
-        if line.text is not None and not line.text.isspace() and len(line.text.strip().split()) > 1: 
-            line_text = line.text.strip('$>').strip().split('\n')[0]
-            cmd = line.text.split()[0]
-            if cmd in commands:
-                cmd_frequency[cmd] = cmd_frequency.get(cmd, 0) + 1
-                cmd_lines.setdefault(cmd, []).append(line_text)
-                if cmd_frequency > max_freq:
-                    max_freq = cmd_frequency
-                    max_cmd = cmd
+    lines = [(line_2_cmd(line), line_2_text(line)) for line in html_answers if candidate_command_line(line)]
+    for (cmd,text) in lines:
+        cmd_frequency[cmd] = cmd_frequency.get(cmd, 0) + 1
+        cmd_lines.setdefault(cmd, []).append(text) 
+    max_cmd = max(cmd_lines, key=cmd_frequency.get)
     if max_cmd is not None:
-        return cmd_lines[max_cmd][0]
-    return None 
+        return cmd_lines[max_cmd][0] # first line corresponding to command
+    return None
 
 
 def get_explanation_lines(command_line):
