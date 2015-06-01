@@ -4,9 +4,7 @@ hownix: find and understand *nix commands
 
 hownix makes it easy to find and learn how to use linux/unix commands. If you're new to the linux or unix command line hownix can help you get started.
 
-Inspired by howdoi
-explain shell
-
+Inspired by Benjamin Gleitzman's howdoi, hownix searches for, parses and makes use of explainshell.com to describe command lines found in StackOverflow answers. 
 
 Installation
 ------------
