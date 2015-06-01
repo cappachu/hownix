@@ -34,8 +34,7 @@ Examples
 
     $ hownix copy remote file 
 
-.. image:: https://raw.github.com/matamrf/hownix/master/misc/scp.png
-
+.. image:: https://raw.github.com/mtamrf/hownix/master/misc/scp.png
 
 Improvements
 ------------
