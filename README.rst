@@ -32,9 +32,16 @@ Examples
 
 ::
 
-    $ hownix copy remote file 
+    $ hownix copy file to remote computer
 
 .. image:: https://raw.github.com/mtamrf/hownix/master/misc/scp.png
+
+::
+
+    $ hownix find in contents of file 
+
+.. image:: https://raw.github.com/mtamrf/hownix/master/misc/grep.png
+
 
 Improvements
 ------------
