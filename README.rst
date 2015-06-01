@@ -34,6 +34,8 @@ Examples
 
 .. image:: https://raw.github.com/mtamrf/hownix/master/misc/scp.png
 
+
+
 ::
 
     $ hownix find in contents of file 

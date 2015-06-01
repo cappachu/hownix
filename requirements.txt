@@ -1,0 +1,4 @@
+argparse==1.2.1
+clint==0.4.1
+requests==2.0.1
+pyquery==1.2.6
