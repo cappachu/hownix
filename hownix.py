@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 
-# TODO:
-# - suggest commonly co-used arguments
-# - search through shell history
-
 import argparse
 import requests
 from requests.exceptions import ConnectionError
