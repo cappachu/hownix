@@ -24,19 +24,17 @@ or
 How To hownix
 -------------
 
-Use hownix by describing the task you intend to perform with a phrase. 
+Use hownix by describing the task you intend to perform with a phrase. hownix should respond by displaying a sample command line with parameters and an explanation of the parameters used.
+
+
+Examples
+--------
 
 ::
 
     $ hownix copy remote file 
 
-hownix should display a sample command line with parameters and an explanation of the parameters used.
-
 .. image:: https://raw.github.com/matamrf/hownix/master/misc/scp.jpeg 
-
-
-Examples
---------
 
 
 Improvements
