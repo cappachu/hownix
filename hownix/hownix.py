@@ -2,7 +2,7 @@
 
 import argparse
 import requests
-import pkg_resources
+import pkgutil
 from requests.exceptions import ConnectionError
 from urllib import quote 
 from pyquery import PyQuery
@@ -30,16 +30,19 @@ def retrieve_so_page_links(query):
 
 def load_commands():
     """Load unix/linux commands names from text file"""
-    return pkg_resources.resource_string('hownix', 'nix_commands.txt')
-    #return [l.strip() for l in open('nix_commands.txt').readlines()]
+    command_data = pkgutil.get_data('hownix', 'nix_commands.txt')
+    return [l.strip() for l in data.split('\n')]
            
+
 def line_2_cmd(line):
     """Return first word from text of line"""
     return line.text.split()[0]
 
+
 def line_2_text(line):
     """Return text from line after cleansing"""
     return line.text.strip('$>').strip().split('\n')[0]
+
 
 def candidate_command_line(line):
     """Return true for lines with non-blank text with more than a single word in which the first word is a unix/linux command"""
@@ -48,6 +51,7 @@ def candidate_command_line(line):
            not line.text.isspace() and \
            len(line.text.strip().split()) > 1 and \
            line_2_cmd(line) in commands
+
 
 def get_command_line(args, links):
     """Parse through StackOverflow page and identify command line corresponding to most frequently referred to command"""
