@@ -31,7 +31,7 @@ def retrieve_so_page_links(query):
 def load_commands():
     """Load unix/linux commands names from text file"""
     command_data = pkgutil.get_data('hownix', 'nix_commands.txt')
-    return [l.strip() for l in data.split('\n')]
+    return [l.strip() for l in command_data.split('\n')]
            
 
 def line_2_cmd(line):
