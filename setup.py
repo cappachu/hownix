@@ -14,6 +14,9 @@ setup(
             'hownix = hownix.hownix:main',
         ]
     },
+    package_data={
+        'hownix': ['nix_commands.txt'],
+    },
     install_requires=[
         'argparse',
         'clint',
