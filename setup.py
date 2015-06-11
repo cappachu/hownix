@@ -7,7 +7,7 @@ setup(
     version=hownix.__version__,
     description='find and understand *nix commands',
     author='Codanda B. Appachu',
-    url='https://github.com/mtamrf/hownix',
+    url='https://github.com/cappachu/hownix',
     packages=find_packages(),
     entry_points={
         'console_scripts': [
