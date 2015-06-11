@@ -10,7 +10,7 @@ Installation
 ------------
 ::
 
-    pip install git+https://github.com/mtamrf/hownix.git
+    pip install git+https://github.com/cappachu/hownix.git
 
 or
 
@@ -32,7 +32,7 @@ Examples
 
     $ hownix copy file to remote computer
 
-.. image:: https://raw.github.com/mtamrf/hownix/master/misc/scp.png
+.. image:: https://raw.github.com/cappachu/hownix/master/misc/scp.png
 
 
 
@@ -40,7 +40,7 @@ Examples
 
     $ hownix find in contents of file 
 
-.. image:: https://raw.github.com/mtamrf/hownix/master/misc/grep.png
+.. image:: https://raw.github.com/cappachu/hownix/master/misc/grep.png
 
 
 Improvements
