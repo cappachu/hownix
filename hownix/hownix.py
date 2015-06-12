@@ -119,7 +119,7 @@ def hownix(args):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='find and understand *nix commands')
+    parser = argparse.ArgumentParser(description='Find and Understand *NIX Commands')
     parser.add_argument('query', nargs='*', help='query')
     args = vars(parser.parse_args())
     if not args['query']:
