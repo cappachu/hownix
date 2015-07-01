@@ -68,7 +68,7 @@ def get_command_line(args, links):
     for (cmd,text) in lines:
         cmd_frequency[cmd] = cmd_frequency.get(cmd, 0) + 1
         cmd_lines.setdefault(cmd, []).append(text) 
-    max_cmd = max(cmd_lines, key=cmd_frequency.get)
+    max_cmd = max(cmd_lines, key=cmd_frequency.get) if cmd_lines else None
     if max_cmd is not None:
         return cmd_lines[max_cmd][0] # first line corresponding to command
     return None
