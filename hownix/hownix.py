@@ -57,21 +57,23 @@ def get_command_line(args, links):
     """Parse through StackOverflow page and identify command line corresponding to most frequently referred to command"""
     if not links:
         return False
-    link = links[0] # use the first link
-    page = request_page(link + '?answertab=votes')
-    html = PyQuery(page)
-    html_answers = html('.answercell').find('*')
+    result_cmd_line = None
+    # traverse through all SO links 
+    for link in links:
+        page = request_page(link + '?answertab=votes')
+        html = PyQuery(page)
+        html_answers = html('.answercell').find('*')
 
-    cmd_frequency = {}
-    cmd_lines = {}
-    lines = [(line_2_cmd(line), line_2_text(line)) for line in html_answers if candidate_command_line(line)]
-    for (cmd,text) in lines:
-        cmd_frequency[cmd] = cmd_frequency.get(cmd, 0) + 1
-        cmd_lines.setdefault(cmd, []).append(text) 
-    max_cmd = max(cmd_lines, key=cmd_frequency.get) if cmd_lines else None
-    if max_cmd is not None:
-        return cmd_lines[max_cmd][0] # first line corresponding to command
-    return None
+        cmd_frequency = {}
+        cmd_lines = {}
+        lines = [(line_2_cmd(line), line_2_text(line)) for line in html_answers if candidate_command_line(line)]
+        for (cmd,text) in lines:
+            cmd_frequency[cmd] = cmd_frequency.get(cmd, 0) + 1
+            cmd_lines.setdefault(cmd, []).append(text) 
+        max_cmd = max(cmd_lines, key=cmd_frequency.get) if cmd_lines else None
+        if max_cmd is not None:
+            result_cmd_line = cmd_lines[max_cmd][0] # first line corresponding to command
+    return result_cmd_line
 
 
 def get_explanation_lines(command_line):
