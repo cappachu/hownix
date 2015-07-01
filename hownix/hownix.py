@@ -58,8 +58,8 @@ def get_command_line(args, links):
     if not links:
         return False
     result_cmd_line = None
-    # traverse through all SO links 
-    for link in links:
+    # traverse through first 3 SO links 
+    for link in links[:3]:
         page = request_page(link + '?answertab=votes')
         html = PyQuery(page)
         html_answers = html('.answercell').find('*')
