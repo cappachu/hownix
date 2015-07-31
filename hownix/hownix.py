@@ -73,6 +73,7 @@ def get_command_line(args, links):
         max_cmd = max(cmd_lines, key=cmd_frequency.get) if cmd_lines else None
         if max_cmd is not None:
             result_cmd_line = cmd_lines[max_cmd][0] # first line corresponding to command
+            break
     return result_cmd_line
 
 
